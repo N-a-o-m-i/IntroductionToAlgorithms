@@ -1,0 +1,10 @@
+package SelectionSort;
+
+public class SelectionSort {
+	
+	public static void SelectionSort (long[] arr) {
+		
+		
+	}
+	
+}

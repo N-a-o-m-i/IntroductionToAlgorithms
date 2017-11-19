@@ -1,0 +1,15 @@
+package SelectionSort;
+
+public class SelectionSort {
+	
+	public static void SelectionSort (long[] arr) {
+		
+		// k always points to the minimum number
+		int k = 0;
+		int tmp = 0;
+		
+		
+		
+	}
+	
+}

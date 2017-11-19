@@ -1,0 +1,9 @@
+package InsertSort;
+
+public class InsertSort {
+
+	public static void sort (long[] arr) {
+		
+	}
+	
+}

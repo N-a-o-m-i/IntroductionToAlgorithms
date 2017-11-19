@@ -1,3 +1,5 @@
 # AlgorithmPractice
 
-## BubbleSort, SelectionSort, InsertSort
+## Topics covered
+
+### 1. BubbleSort, SelectionSort, InsertSort

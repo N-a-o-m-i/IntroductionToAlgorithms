@@ -1,1 +1,3 @@
 # AlgorithmPractice
+
+## BubbleSort, SelectionSort, InsertSort

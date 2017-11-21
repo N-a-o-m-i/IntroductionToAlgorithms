@@ -2,18 +2,19 @@ package SingleLinkedList;
 
 public class SingleLinkedListTest {
 
-	public static void main (String[] args) {
+	public static void main (String[] args) throws Exception {
 		
 		SingleLinkedList<Integer> test = new SingleLinkedList<Integer>();
 		for (int i = 0; i < 10; i++) {
-			test.insert(i);
+			test.insertFirst(i);
 		}
 		System.out.println("----------testing----------");
-		System.out.println("Read index: ");
-		System.out.println(test.get(0) + ",");
-		System.out.println(test.get(4) + ",");
-//		System.out.println(test.get(test.size() - 1));
-		
+		test.deleteFirst();
+		test.display();
+		test.deleteFirst();
+		test.display();
+		System.out.println("Finding 5 : " + test.find(5));
+		System.out.println("Finding 50 : " + test.find(50));
 	}
 	
 }

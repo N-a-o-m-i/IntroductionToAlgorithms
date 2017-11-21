@@ -2,156 +2,89 @@ package SingleLinkedList;
 
 public class SingleLinkedList<T> {
 
-	// head node
-	private Node headNode;
-	private Node currentNode;
-	private int size;
-	
-	public SingleLinkedList () {
-		headNode = new Node();
-		currentNode = null;
-		size = 0;
-	}
-	
-	public int size () {
-		return size;
-	}
-	
-	public boolean isEmpty () {
-		return size == 0;
-	}
-	
-	public boolean isIndexOk (int n) {
-		if (n < -1 || n >= size) return false;
-		return true;
-	}
-	
-	// locate the pointer of current node to nth
-	public void toIndexOf (int n) {
-		if (isEmpty() || !isIndexOk(n)) {
-			throw new IndexOutOfBoundsException("Index: " + n + ", Size: " + size);
-		}
-		currentNode = headNode;
-		if (n == -1) return; // if n = 0
+	private class Node {
+		private Object obj;
+		private Node next = null;
 		
-		while (n != -1) {
-			currentNode = currentNode.getNext();
-			n--;
-		} 
-	}
-	
-	/**
-	 * Insert Node to the end of the list
-	 * */
-	public void insert (T data) {
-		Node newNode = new Node(data);
-		if (isEmpty()) {
-			headNode.setNext(newNode);
-		} else {
-			toIndexOf(size - 1);
-			currentNode.setNext(newNode);
+		Node (Object obj) {
+			this.obj = obj;
 		}
-		size++;
+	}
+	
+	private Node first = null;
+	
+	/**
+	 * O(1)
+	 * */
+	public void insertFirst (Object obj) {
+		Node node = new Node(obj);
+		node.next = first;
+		first = node;
 	}
 	
 	/**
-	 * Insert Node to nth
+	 * O(1)
 	 * */
-	public void insert (T data, int n) {
-		// locate the current pointer to (n-1)th
-		toIndexOf(n-1);
-		
-		// if it's empty, insert to the headNode
-		if (isEmpty()) {
-			insert(data);
-			return;
+	public Object deleteFirst () throws Exception {
+		if (first == null) {
+			throw new Exception("Empty");
 		}
-		
-		// point newNode.next to nth node
-		// point (n-1)th node to new node
-		currentNode.setNext(new Node(data, currentNode.getNext()));
-		size++;
-	}
-	
-	
-	/**
-	 * delete Node at nth
-	 * */
-	public T delete (int n) {
-		toIndexOf(n - 1);
-		T data = (T) currentNode.getNext().getData();
-		currentNode.setNext(currentNode.getNext().getNext());
-		size--;
-		return data;
+		Node tmp = first;
+		first = first.next;
+		return tmp.obj;
 	}
 	
 	/**
-	 * delete some node
+	 * O(N)
 	 * */
-	public T deleteElemBy (T data) {
-		int n = getElementAt(data);
-		return delete(n);
-	}
-	
-	/**
-	 * Check nth node
-	 * */
-	public <T> T get (int n) {
-		// locate the currentNode to nth node
-		toIndexOf(n);
-		return (T) currentNode.getData();
-	}
-	
-	/**
-	 * Check the index of some node
-	 * */
-	public int getElementAt(T data) {
-		if (data == null) {
-			throw new NullPointerException("If you llike null, I'll give you null");
+	public Object find (Object obj) throws Exception {
+		if (first == null) {
+			throw new Exception("LinkedList is Empty!");
 		}
-		currentNode = headNode.getNext();
-		int i = 0;
-		while (currentNode != null) {
-			if (currentNode.getData().equals(data)) {
-				return i;
+		Node cur = first;
+		while (cur != null) {
+			if (cur.obj.equals(obj)) {
+				return cur.obj;
 			}
-			i++;
-			currentNode = currentNode.getNext();
+			cur = cur.next;
 		}
-		return -1;
+		return null;
 	}
 	
 	/**
-	 * Change the value of some node
+	 * O(N)
 	 * */
-	public boolean setElemAt (T data, int n) {
-		toIndexOf(n);
-		currentNode.setData(data);
-		return true;
+	public void remove (Object obj) throws Exception {
+		if (first == null) {
+			throw new Exception("LinkedList is empty");
+		}
+		if (first.obj.equals(obj)) {
+			first = first.next;
+		} else {
+			Node pre = first;
+			Node cur = first.next;
+			while (cur != null) {
+				if (cur.obj.equals(obj)) {
+					pre.next = cur.next;
+				}
+				pre = cur;
+				cur = cur.next;
+			}
+		}
 	}
 	
-	/**
-	 * Check if a node is existed or not
-	 * */
-	public boolean contains (T data) {
-		return getElementAt(data) == -1 ? false : true; 
+	public void display () {
+		if (first == null) {
+			System.out.println("Empty LinkedList");
+		}
+		Node cur = first;
+		while (cur != null) {
+			System.out.print(cur.obj.toString() + " -> ");
+			cur = cur.next;
+		}
+		System.out.println();
 	}
 	
-	/**
-	 * transfer to array
-	 * */
-	public Object[] toArray () {
-		if (isEmpty()) {
-			throw new IndexOutOfBoundsException("Size: " + size);
-		}
-		Object[] arr = new Object[size];
-		toIndexOf(0);
-		int i = 0;
-		while (currentNode != null) {
-			arr[i++] = currentNode.getData();
-			currentNode = currentNode.getNext();
-		}
-		return arr;
-	}
+	
 	
 }
